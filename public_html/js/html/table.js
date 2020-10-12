@@ -6,8 +6,92 @@
 
 class HTMLTable{
 	constructor(){
-		
+		this._ColumnCount = 0;
+		this._GlobalAttribs = "";
+		this._Parent = "";
+		this._Row = [];
+		this._RowCount = 0;
 	}
+	append(){
+	    
+	}
+	set CellContents(CellObject){
+	        this._Row[CellObject.Row][CellObject.Column].Contents = CellObject.Text;
+	}
+	set ColumnCount(Count){
+	    if(Count > -1){
+	        this._ColumnCount = Count;
+	    }
+	}
+	set Dimensions(DimensionObject){
+	    this._ColumnCount = DimensionObject.ColumnCount;
+	    this._RowCount = DimensionObject.RowCount;
+	    this._Row = [];
+	    for(var i = 0; i < this._RowCount; i++){
+	        this._Row.push(Array(this._ColumnCount).fill(new HTMLTD()));
+	    }
+	}
+	set RowCount(Count){
+	    if(Count > -1){
+	        this._RowCount = Count;
+	    }
+	}
+}
+
+class TableCellObject{
+    constructor(){
+        this._Column = 0;
+        this._Contents = "";
+        this._Row = 0;
+    }
+    get Column(){
+        return this._Column;
+    }
+    get Contents(){
+        return this._Contents;
+    }
+    get Row(){
+        return this._Row;
+    }
+    set AppendContents(Text){
+        this._Contents += Text;
+    }
+    set Column(Column){
+        if(Column > -1){
+            this._Column = Column;
+        }
+    }
+    set Contents(Text){
+        this._Contents = Text;
+    }
+    set Row(Row){
+        if(Row > -1){
+            this._Row = Row;
+        }
+    }
+}
+
+class TableDimensionObject{
+    constructor(){
+        this._ColumnCount = 0;
+        this._RowCount = 0;
+    }
+    get ColumnCount(){
+        return this._ColumnCount;
+    }
+    get RowCount(){
+        return this._RowCount;
+    }
+    set ColumnCount(ColumnCount){
+        if(ColumnCount > -1){
+            this._ColumnCount = ColumnCount;
+        }
+    }
+    set RowCount(RowCount){
+        if(RowCount > -1){
+            this._RowCount = RowCount;
+        }
+    }
 }
 
 class HTMLTD{
@@ -19,6 +103,7 @@ class HTMLTD{
 		this._GlobalAttribs = "";
 		this._Header = "";
 		this._Parent = "";
+		this._RowSpan = "";
 	}
 	append(){
 		if(this._Parent != ""){
@@ -29,6 +114,9 @@ class HTMLTD{
 			}
 			if(this._ColumnSpan != ""){
 				TD.setAttribute("colspan",  this._ColumnSpan);
+			}
+			if(this._RowSpan != ""){
+				TD.setAttribute("rowspan",  this._RowSpan);
 			}
 			if(this._EventType != "" && this._EventTarget != ""){
 				TD.setAttribute(this._EventType, this._EventTarget);
@@ -64,8 +152,11 @@ class HTMLTD{
 		_HTML += "</td>";
 		return _HTML;
 	}
-	set ColumnSpan(Columns){
-		this._ColumnSpan = Columns;
+	set AppendContents(Text){
+	    this._Contents += Text;
+	}
+	set ColumnSpan(ColumnCount){
+		this._ColumnSpan = ColumnCount;
 	}
 	set Contents(Text){
 		this._Contents = Text;
@@ -78,6 +169,9 @@ class HTMLTD{
 	}
 	set Parent(Parent){
 		this._Parent = Parent;
+	}
+	set RowSpan(RowCount){
+		this._RowSpan = RowCount;
 	}
 }
 
@@ -93,7 +187,7 @@ class HTMLTH{
 	}
 	get HTML(){
 		//Write opening th
-		_HTML = "<th";
+		var _HTML = "<th";
 		if(this._GlobalAttribs != ""){
 			_HTML += ' ' + this._GlobalAttribs;
 		}
@@ -116,10 +210,14 @@ class HTMLTH{
 		//Write contents
 		_HTML += this._Contents;
 		//Write closing th
-		_HMTL += "</th>";
+		_HTML += "</th>";
+		return _HTML;
 	}
 	set Abbreviation(Abbreviation){
 		this._Abbreviaton = Abbreviation;
+	}
+	set AppendContents(Text){
+	    this._Contents += Text;
 	}
 	set ColumnSpan(Columns){
 		this._ColumnSpan = Columns;
@@ -162,13 +260,17 @@ class HTMLTR{
 		//Write opening tr
 		var _HTML = "<tr";
 		if(this._GlobalAttribs != ""){
-			_HTML += ' ' + this._GlobalAttribs;
+			_HTML += ' ' + this._GlobalAttribs.HTML;
 		}
 		_HTML += ">";
 		//Write contents
 		_HTML += this._Contents;
 		//Write closing tr
-		_HMTL += "</tr>";
+		_HTML += "</tr>";
+		return _HTML;
+	}
+	set AppendContents(Text){
+	    this._Contents += Text;
 	}
 	set Contents(Text){
 		this._Contents = Text;
