@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+
+<html>
+
+	<head>
+	    <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="js/html/globalattribs.js"></script>
+		<script type="text/javascript" src="js/html/input.js"></script>
+		<script type="text/javascript" src="js/html/table.js"></script>
+		<script type="text/javascript" src="js/html/text.js"></script>
+		<script type="text/javascript" src="js/tools/kmap.js"></script>
+	</head>
+
+<style type="text/css">
+TD.HighLighted         {  color: rgb(255,0,255); font-size:150%; }
+</style>
+
+	<BODY>
+
+
+
+<center>Core K-map solving code orginally taken from Karnaugh Map Explorer 1.0</center>
+<center>Found at <a href="https://courseware.ee.calpoly.edu/~rsandige/KarnaughExplorer.html">calpoly.edu</a></center>
+<center>Original code has been heavily modified and extended</center>
+<table width="640">
+<tr>
+<div id="Header">
+	<th><center>Karnaugh Map Solver</center></th>
+</div>
+</tr>
+<tr><td>
+<div id="Toggles">
+<form name="UI" onSubmit="return false">
+<table>
+	<tr id="ArgumentCountSelects">
+		<td width="12%"><input type="checkbox" onClick="ToggleDontCare();" ID="AllowDontCareCB">
+			Allow Don't Cares
+		</td>
+	</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+	<td>
+		<table cellpadding="10">
+			<tr>
+				<td>
+					<div id="TruthTableDiv"></div>
+				</td>
+				<td >
+					<table >
+						<tr>
+							<td>
+								<div id="KarnoMapDiv"></div>
+							</td>
+						</tr>
+						<tr>
+							<td width="400" height="80">
+								<br>
+								<div id="EquationDiv"></div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<P></P>
+		<P></P>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div id="Instructions">
+			Click on the buttons in the Truth Table or in the Karnaugh Map to change the value. Mouse over minterm components of the function F to see a representation of the minterm 
+			in the Karnaugh Map.  
+		</div>
+	</td>
+</tr>
+</table>
+</form>
+<script>window.onload = Load();</script>
+	</BODY>
+</html>
